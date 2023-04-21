@@ -13,12 +13,12 @@ from concurrent.futures import ThreadPoolExecutor
 
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'}
 
-def scrape_url(url: str, session, headers) -> str:
+def scrape_url(url: str, session: requests.Session, headers: dict[str, str]) -> BeautifulSoup:
     response = session.get(url=url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
     return soup
 
-def get_urls(term: str, uf: str, city: str, headers, session):
+def get_urls(term: str, uf: str, city: str, headers, session) -> List[str]:
     print('Buscando por registros, por favor aguarde...')
     links = []
     full_urls = []
