@@ -18,7 +18,7 @@ def scrape_url(url: str, session: requests.Session, headers: dict[str, str]) -> 
     soup = BeautifulSoup(response.text, 'html.parser')
     return soup
 
-def get_urls(term: str, uf: str, city: str, headers, session) -> List[str]:
+def get_urls(term: str, uf: str, city: str, headers: dict[str, str], session: requests.Session) -> List[str]:
     print('Buscando por registros, por favor aguarde...')
     links = []
     full_urls = []
@@ -53,7 +53,7 @@ def get_urls(term: str, uf: str, city: str, headers, session) -> List[str]:
                 pass
     return links
 
-def get_data(urls: List[str], session, headers) -> List[List[str]]:
+def get_data(urls: List[str], session: requests.Session, headers: dict[str, str]) -> List[List[str]]:
     all = []
     with ThreadPoolExecutor(max_workers=15) as executor:
         results = [executor.submit(scrape_url, f'http://casadosdados.com.br{url}', session, headers) for url in urls]
